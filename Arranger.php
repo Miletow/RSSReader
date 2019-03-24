@@ -1,33 +1,37 @@
 <?php
 
-class Arranger{
+namespace RSSReader\Utilities;
+
+class Arranger
+{
 
     private $arrange_setting;
 
-    public function arrange($source){
-
-        switch($this->arrange_setting){
+    public function arrange($source)
+    {
+        switch($this->arrange_setting) {
             case "date":
-            return $this->arrangeByDate($source);
-            break;
+                return $this->arrangeByDate($source);
+                break;
 
             case "title":
-            return $this->arrangeAlphabetical($source);
-            break;
+                return $this->arrangeAlphabetical($source);
+                break;
             
             default:
-            exit();
+                exit();
         }
     }
 
-    public function setArrangeSetting($setting){
+    public function setArrangeSetting($setting)
+    {
         $this->arrange_setting = $setting;
     }
 
 
-    private function arrangeAlphabetical($source){
-
-        usort($source, function($a, $b){
+    private function arrangeAlphabetical($source)
+    {
+        usort($source, function($a, $b) {
             return strcmp($a->title, $b->title);
         });
 
@@ -35,10 +39,9 @@ class Arranger{
     }
 
 
-    private function arrangeByDate($source){
-
-        usort($source, function($a, $b)
-            {
+    private function arrangeByDate($source)
+    {
+        usort($source, function($a, $b) {
                 $date1 = strtotime($a->pubDate);
                 $date2 = strtotime($b->pubDate);
                 if ($date1 < $date2) return 1;

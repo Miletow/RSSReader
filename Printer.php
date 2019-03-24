@@ -1,20 +1,19 @@
 <?php
 
-interface InterfacePrinter{
+namespace RSSReader\Utilities;
 
-    public function print($text);
-    public function printLine();
-}
+use RSSReader\Interfaces\InterfacePrinter;
 
-
-class Printer implements InterfacePrinter{
+class Printer implements InterfacePrinter
+{
    
-    public function print($text){
+    public function print($text)
+    {
             echo $text.PHP_EOL;
     }    
 
-    public function printLine(){
+    public function printLine()
+    {
             echo PHP_EOL;
     }    
 }
-

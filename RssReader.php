@@ -1,10 +1,24 @@
 <?php
-include 'ObjectCreator.php';
-include 'Feed.php';
+include 'InterfacePrinter.php';
+include 'Questions.php';
+include 'Printer.php';
+include 'FilePrinter.php';
 include 'Arranger.php';
+include 'Feed.php';
+include 'Input.php';
 include 'Menu.php';
+include 'ObjectCreator.php';
 
-class RssReader{
+
+use RssReader\Utilities\Menu;
+use RssReader\Utilities\ObjectCreator;
+use RssReader\Utilities\Feed;
+use RssReader\Utilities\Arranger;
+
+
+
+class RssReader
+{
 
     private $urls = array(
         array(
@@ -25,8 +39,8 @@ class RssReader{
             )
     );
 
-    public function __construct(){
-        
+    public function __construct()
+    {
         $Menu = new Menu();
         $ObjectCreator = new ObjectCreator();
         $Feed = new Feed();
@@ -35,11 +49,10 @@ class RssReader{
         $this->setSettings($Menu, $Feed, $Arranger);
 
         $this->runRssReader($ObjectCreator, $Arranger, $Feed);
-        
     }
 
-    private function setSettings($Menu, $Feed, $Arranger){
-
+    private function setSettings($Menu, $Feed, $Arranger)
+    {
         $arrange_setting = $Menu->askArrangeSetting();
         $nr_of_items = $Menu->askNumberOfItems();
         $print_to_file = $Menu->askPrintSetting();
@@ -53,20 +66,16 @@ class RssReader{
         }
     }
 
-    private function runRssReader($ObjectCreator, $Arranger, $Feed){
-
+    private function runRssReader($ObjectCreator, $Arranger, $Feed)
+    {
         foreach($this->urls as $url) {
-
             $object = $ObjectCreator->createObject($url["url"]);
             $object_array = $ObjectCreator->createItemObjectArray($object);
             $sorted_array = $Arranger->arrange($object_array);
             
             $Feed->feed($sorted_array, $url["title"]);
-    
         }
     }
 
 }
-
-
 

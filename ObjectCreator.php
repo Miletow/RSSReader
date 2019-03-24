@@ -1,21 +1,23 @@
 <?php
 
-class ObjectCreator{
+namespace RSSReader\Utilities;
 
-    public function createObject($source){
+class ObjectCreator
+{
 
+    public function createObject($source)
+    {
         $object = simplexml_load_file($source);
 
-        if($object == false){
+        if($object == false) {
             throw new Exception("Error loading rss source.");
         }
 
        return $object;
-        
     }
 
-    public function createItemObjectArray($Object){
-
+    public function createItemObjectArray($Object)
+    {
         $ObjectArray = array();
 
         foreach($Object->channel->item as $item) {

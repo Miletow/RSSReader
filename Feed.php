@@ -1,8 +1,9 @@
 <?php
-include 'Printer.php';
-include 'FilePrinter.php';
 
-class Feed{
+namespace RSSReader\Utilities;
+
+class Feed
+{
 
     private $lines;
     private $print_to_file = false;
@@ -11,13 +12,14 @@ class Feed{
     private $FilePrinter;
     private $Printer;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->Printer = new Printer();
     }
 
-    public function feed($paper, $title){
-
-        if($this->print_to_file == true){
+    public function feed($paper, $title)
+    {
+        if($this->print_to_file == true) {
             $this->FilePrinter->openFile($this->file_name);
             $this->runPrint($this->FilePrinter, $paper, $title);
             $this->FilePrinter->closeFile($this->file_name);
@@ -27,8 +29,8 @@ class Feed{
   
     }
 
-    private function runPrint($Printer, $paper, $title){
-
+    private function runPrint($Printer, $paper, $title)
+    {
         $count = 0;
 
         $Printer->printLine();
@@ -37,7 +39,7 @@ class Feed{
         foreach($paper as $item) {
 
             $count++;
-            if($count > $this->lines){
+            if($count > $this->lines) {
                 break;
             }
 
@@ -48,11 +50,13 @@ class Feed{
         }
     }
 
-    public function setNrOfLines($lines){
+    public function setNrOfLines($lines)
+    {
         $this->lines = $lines;
     }
 
-    public function startFilePrinter($file){
+    public function startFilePrinter($file)
+    {
         $this->print_to_file = true;
         $this->file_name = $file;
         $this->FilePrinter = new FilePrinter();
